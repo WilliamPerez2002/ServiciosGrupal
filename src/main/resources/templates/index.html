@@ -169,7 +169,7 @@
                 event.preventDefault(); // Evitar la recarga de la página
                 $.ajax({
                     type: "POST",
-                    url: ""+$('#cedula').val(), // Ruta para insertar un estudiante
+                    url: "https://grupo5servicios-production.up.railway.app/rest/save/"+$('#cedula').val(), // Ruta para insertar un estudiante
                     dataType: "json",
                     contentType: 'application/json',
                     data: JSON.stringify({
@@ -189,7 +189,7 @@
                     event.preventDefault(); // Evitar la recarga de la página
                     $.ajax({
                         type: "PUT",
-                        url: ""+$('#ecedula').val(), // Ruta para editar un estudiante
+                        url: "https://grupo5servicios-production.up.railway.app/rest/edit/"+$('#ecedula').val(), // Ruta para editar un estudiante
                         dataType: "json",
                         contentType: 'application/json',
                         data: JSON.stringify({
@@ -217,7 +217,7 @@
                             var currentRow = $(this).closest("tr");
                             var cedula = currentRow.find("td:eq(0)").text();
                             $.ajax({
-                                url: "" + cedula, // Ruta para eliminar un estudiante
+                                url: "https://grupo5servicios-production.up.railway.app/rest/delete/" + cedula, // Ruta para eliminar un estudiante
                                 type: "DELETE",
                                 success: function(){
                                     loadUsers(); // Actualizar la tabla después de eliminar un estudiante
@@ -228,21 +228,21 @@
 
     function loadUsers() {
         $.ajax({
-            url: "https://grupo5servicios-production.up.railway.app/rest/all",
+            url: "https://services-project-production.up.railway.app/rest/all",
             type: "GET",
             dataType: "json",
             success: function(data) {
-                var btnEdit = '<button type="button" class="btn btn-outline-warning btnEdit" data-bs-toggle="modal" data-bs-target="#editUser"> Edit</button>';
-                var btnDelete = '<button type="button" class="btn btn-outline-danger btnDelete" data-bs-toggle="modal" data-bs-target="#editUserModal">Delete</button>';
+                var btnEdit = '<button type="button" class="btn btn-primary btnEdit" data-bs-toggle="modal" data-bs-target="#editUser"> Editar</button>';
+                var btnDelete = '<button type="button" class="btn btn-primary btn-danger btnDelete" data-bs-toggle="modal" data-bs-target="#editUserModal"> Eliminar</button>';
                 var html = "";
 
                 for (let i = 0; i < data.length; i++) {
                     html += "<tr><td>" + data[i].cedula + "</td><td>" +
-                            data[i].nombre + "</td><td>" +
-                            data[i].apellido + "</td><td>" +
-                            data[i].direccion + "</td><td>" +
-                            data[i].telefono + "</td><td>" +
-                            btnEdit + " " + btnDelete + "</td></tr>";
+                        data[i].nombre + "</td><td>" +
+                        data[i].apellido + "</td><td>" +
+                        data[i].direccion + "</td><td>" +
+                        data[i].telefono + "</td><td>" +
+                        btnEdit + " " + btnDelete + "</td></tr>";
                 }
 
                 $('#tblUsers tbody').html(html);
