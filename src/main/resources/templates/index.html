@@ -165,11 +165,25 @@
 
     $(document).ready(function(){
         loadUsers();
-            $("#add-user-form").submit(function(event){
-                event.preventDefault(); // Evitar la recarga de la página
+               $("#add-user-form").submit(function(event){
+    event.preventDefault(); 
+
+    var id = $('#cedula').val(); 
+
+    
+    $.ajax({
+        type: "GET",
+        url: "https://services-project-production.up.railway.app/rest/get/"+ id, // Ruta para obtener un estudiante por ID
+        dataType: "json",
+        success: function(response) {
+            
+            if (response) {
+                alert("Numero de cedula de estudiante ya existente.");
+            } else {
+                
                 $.ajax({
                     type: "POST",
-                    url: "https://grupo4servicios-production.up.railway.app/rest/save/"+$('#cedula').val(), // Ruta para insertar un estudiante
+                    url: "https://services-project-production.up.railway.app/rest/save/"+ id,
                     dataType: "json",
                     contentType: 'application/json',
                     data: JSON.stringify({
@@ -179,13 +193,48 @@
                         "telefono": $('#telefono').val()
                     }),
                     success: function(response) {
-                        $('#addNewUser').modal('hide');
-                        loadUsers(); 
-                        location.reload();// Actualizar la tabla después de agregar un estudiante
-                    }
+                         location.reload(); 
+                    },
+                  
                 });
-            });
+            }
+        },
+        error: function(xhr, status, error) {
+            
+            if (xhr.status === 404) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://grupo4servicios-production.up.railway.app/rest/save/"+ id,
+                    dataType: "json",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "nombre": $('#nombre').val(),
+                        "apellido": $('#apellido').val(),
+                        "direccion": $('#direccion').val(),
+                        "telefono": $('#telefono').val()
+                    }),
+                    success: function(response) {
+                       
+                        location.reload();
+                        
+                    },
+                     error: function(xhr, status, error) {
+        if(xhr.status === 500){
+            alert("Ponga en un formato correcto los datos");
+        }
+    }
+                   
+                });
+            } else {
+                
+                var errorMessage = "Error desconocido";
+                alert( errorMessage);
+            }
+        }
+    });
+});
 
+        
             $("#edit-user-form").submit(function(event){
                     event.preventDefault(); // Evitar la recarga de la página
                     $.ajax({
