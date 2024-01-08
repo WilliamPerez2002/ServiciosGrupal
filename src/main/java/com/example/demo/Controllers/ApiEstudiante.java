@@ -5,8 +5,10 @@ import com.example.demo.model.Estudiante;
 import com.example.demo.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("rest")
