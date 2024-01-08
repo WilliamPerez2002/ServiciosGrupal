@@ -69,7 +69,7 @@
         loadUsers();
     function loadUsers() {
         $.ajax({
-            url: "http://localhost:4444/rest/all",
+            url: "https://grupo5servicios-production.up.railway.app/rest/all",
             type: "GET",
             dataType: "json",
             success: function(data) {
