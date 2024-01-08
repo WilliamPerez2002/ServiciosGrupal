@@ -13,14 +13,7 @@ import java.util.List;
 public class ApiEstudiante {
     @Autowired
     EstudianteRepository estudianteRepository;
-    @GetMapping("/saludar")
-    public String saludar(){
-        return "Hola mundo";
-    }
-    @GetMapping("/")
-    public String index(){
-        return "index";
-    }
+    
     @GetMapping("/all")
     public List<Estudiante> getEstudiante(){
         return estudianteRepository.findAll();
@@ -40,4 +33,16 @@ public class ApiEstudiante {
     public void deleteEstudiante(@PathVariable String cedula){
         estudianteRepository.deleteById(cedula);
     }
+
+     @GetMapping("/get/{cedula}")
+    public ResponseEntity<Estudiante> getEstudianteByID(@PathVariable String cedula) {
+        Optional<Estudiante> estudianteOptional = estudianteRepository.findById(cedula);
+        if (estudianteOptional.isPresent()) {
+            Estudiante estudiante = estudianteOptional.get();
+            return ResponseEntity.ok(estudiante);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
