@@ -169,7 +169,7 @@
                 event.preventDefault(); // Evitar la recarga de la página
                 $.ajax({
                     type: "POST",
-                    url: "https://grupo5servicios-production.up.railway.app/rest/save/"+$('#cedula').val(), // Ruta para insertar un estudiante
+                    url: "https://grupo4servicios-production.up.railway.app/rest/save/"+$('#cedula').val(), // Ruta para insertar un estudiante
                     dataType: "json",
                     contentType: 'application/json',
                     data: JSON.stringify({
@@ -189,7 +189,7 @@
                     event.preventDefault(); // Evitar la recarga de la página
                     $.ajax({
                         type: "PUT",
-                        url: "https://grupo5servicios-production.up.railway.app/rest/edit/"+$('#ecedula').val(), // Ruta para editar un estudiante
+                        url: "https://grupo4servicios-production.up.railway.app/rest/edit/"+$('#ecedula').val(), // Ruta para editar un estudiante
                         dataType: "json",
                         contentType: 'application/json',
                         data: JSON.stringify({
@@ -217,7 +217,7 @@
                             var currentRow = $(this).closest("tr");
                             var cedula = currentRow.find("td:eq(0)").text();
                             $.ajax({
-                                url: "https://grupo5servicios-production.up.railway.app/rest/delete/" + cedula, // Ruta para eliminar un estudiante
+                                url: "https://grupo4servicios-production.up.railway.app/rest/delete/" + cedula, // Ruta para eliminar un estudiante
                                 type: "DELETE",
                                 success: function(){
                                     loadUsers(); // Actualizar la tabla después de eliminar un estudiante
@@ -228,7 +228,7 @@
 
     function loadUsers() {
         $.ajax({
-            url: "https://grupo5servicios-production.up.railway.app/rest/all",
+            url: "https://grupo4servicios-production.up.railway.app/rest/all",
             type: "GET",
             dataType: "json",
             success: function(data) {
